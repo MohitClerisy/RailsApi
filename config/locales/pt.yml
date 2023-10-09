@@ -1,0 +1,28 @@
+# config/locales/pt.yml
+pt:
+  messages:
+    welcome: "Bem-vindo!"
+    thanks: "Obrigado!"
+    goodbye: "Adeus!"
+    
+  actions:
+    create:
+      success: "Criado com sucesso!"
+      error: "Falha ao criar. Por favor, tente novamente."
+    update:
+      success: "Atualizado com sucesso!"
+      error: "Falha ao atualizar. Por favor, tente novamente."
+    delete:
+      success: "Excluído com sucesso!"
+      error: "Falha ao excluir. Por favor, tente novamente."
+  
+  errors:
+    not_found: "Não encontrado"
+    unauthorized: "Você não tem permissão para acessar isto."
+    invalid: "Entrada inválida."
+    server_error: "Algo deu errado. Por favor, tente novamente mais tarde."
+
+  misc:
+    yes: "Sim"
+    no: "Não"
+    or: "Ou"
