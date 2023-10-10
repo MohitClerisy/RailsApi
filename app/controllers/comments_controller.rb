@@ -9,14 +9,15 @@ class CommentsController < ApplicationController
                        .order(created_at: :desc)
                        .paginate(params[:page])
                        .per(params[:per_page])
+                       .where(post_id: params[:post_id])
     if @comments.count != 0
       render json: {
         pagination: pagination_data(@comments)
       }, status: :ok
     else
       render json: {
-        errors: I18n.t('errors.not_found')
-      }
+        message: I18n.t('errors.not_found')
+      }, status: :not_found
     end
   end
 

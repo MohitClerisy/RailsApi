@@ -3,7 +3,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_request
   def index
-    puts "=========#{params[:per_page]}"
     @posts = Post.all
                  .select(:id, :title, :description, :user_id, :created_at)
                  .includes(:user)

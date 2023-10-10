@@ -27,12 +27,14 @@ class ApplicationController < ActionController::API
 
   # Method to render pagination data
   def pagination_data(model)
-    {   rows: ActiveModel::SerializableResource.new(model),
-        total_pages: model.total_pages,
-        current_page: model.current_page,
-        next_page: model.next_page,
-        prev_page: model.prev_page,
-        total_count: model.total_count,
-        limit_value: model.limit_value }
+    {
+      rows: ActiveModelSerializers::SerializableResource.new(model),
+      total_pages: model.total_pages,
+      current_page: model.current_page,
+      next_page: model.next_page,
+      prev_page: model.prev_page,
+      total_count: model.total_count,
+      limit_value: model.limit_value
+    }
   end
 end

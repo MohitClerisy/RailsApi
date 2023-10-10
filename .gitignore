@@ -29,3 +29,4 @@
 /config/master.key
 .vscode
 .env
+/coverage

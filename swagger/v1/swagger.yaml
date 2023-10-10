@@ -53,6 +53,54 @@ paths:
               required:
               - email
               - password
+  "/api/v1/posts/{post_id}/comments":
+    parameters:
+    - name: post_id
+      in: path
+      description: post_id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: list comments
+      security:
+      - BearerAuth: []
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create comment
+      responses:
+        '200':
+          description: successful
+  "/api/v1/comments/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show comment
+      responses:
+        '200':
+          description: successful
+    patch:
+      summary: update comment
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update comment
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete comment
+      responses:
+        '200':
+          description: successful
   "/api/v1/posts":
     get:
       summary: list posts
