@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'swagger_helper'
 require 'jwt'
 
@@ -7,15 +9,15 @@ RSpec.describe 'users', type: :request do
   path '/api/v1/user/my-profile' do
     get('Retrieve user profile') do
       consumes 'application/json'
-      security [ BearerAuth: [] ]
+      security [BearerAuth: []]
 
       let(:user) { create(:user) }
-      
+
       let(:valid_token) { "Bearer #{jwt_encode({ user_id: user.id })}" }
-      
-      let(:invalid_token) { "Bearer #{jwt_encode(user_id: user.id, exp: 5.minute.ago.to_i)}"}
-      
-      let(:'Authorization') { valid_token }
+
+      let(:invalid_token) { "Bearer #{jwt_encode(user_id: user.id, exp: 5.minute.ago.to_i)}" }
+
+      let(:Authorization) { valid_token }
 
       response(200, 'successful') do
         after do |example|

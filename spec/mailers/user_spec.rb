@@ -1,9 +1,11 @@
-require "rails_helper"
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe UserMailer, type: :mailer do
   describe 'welcome_email' do
     let(:user) { FactoryBot.create(:user) }
-    let(:mail) { UserMailer.with(user: user).welcome_email }
+    let(:mail) { UserMailer.with(user:).welcome_email }
 
     it 'renders the headers' do
       expect(mail.subject).to eq('Welcome to My Awesome Site')
