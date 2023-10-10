@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :authenticate_request
   def index
     @posts = Post.all
-                 .select(:id, :title, :description, :user_id, :created_at)
+                 .select(:id, :title, :description, :user_id, :created_at, :updated_at)
                  .includes(:user)
                  .order(created_at: :desc)
                  .paginate(params[:page] || 1)
