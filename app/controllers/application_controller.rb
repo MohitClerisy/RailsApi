@@ -20,7 +20,8 @@ class ApplicationController < ActionController::API
     @current_user = User.includes(:posts).find(decoded[:user_id])
   rescue StandardError => e
     render json: {
-             error: e
+             error: 'Unauthorized',
+             message: e
            },
            status: :unauthorized
   end
