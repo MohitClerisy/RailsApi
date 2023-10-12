@@ -16,6 +16,8 @@ RSpec.describe 'comments', type: :request do
     get('list comments') do
       consumes 'application/json'
       security [BearerAuth: []]
+      parameter name: :page, in: :query, type: :integer, description: 'Page number (default: 1)'
+      parameter name: :per_page, in: :query, type: :integer, description: 'Items per page (default: 10)'
       response(200, 'successful') do
         let(:Authorization) { valid_token }
         let(:post_id) { '123' }
@@ -32,7 +34,18 @@ RSpec.describe 'comments', type: :request do
     end
 
     post('create comment') do
+      consumes 'application/json'
+      security [BearerAuth: []]
+      parameter name: 'post_id', in: :path, type: :string, description: 'post_id'
+      parameter name: :comment, in: :body, schema: {
+        type: :object,
+        properties: {
+          content: { type: :string }
+        },
+        required: ['content']
+      }
       response(200, 'successful') do
+        let(:Authorization) { valid_token }
         let(:post_id) { '123' }
 
         after do |example|
@@ -52,7 +65,10 @@ RSpec.describe 'comments', type: :request do
     parameter name: 'id', in: :path, type: :string, description: 'id'
 
     get('show comment') do
+      consumes 'application/json'
+      security [BearerAuth: []]
       response(200, 'successful') do
+        let(:Authorization) { valid_token }
         let(:id) { '123' }
 
         after do |example|
@@ -67,7 +83,17 @@ RSpec.describe 'comments', type: :request do
     end
 
     patch('update comment') do
+      consumes 'application/json'
+      security [BearerAuth: []]
+      parameter name: :comment, in: :body, schema: {
+        type: :object,
+        properties: {
+          content: { type: :string }
+        },
+        required: %w[content]
+      }
       response(200, 'successful') do
+        let(:Authorization) { valid_token }
         let(:id) { '123' }
 
         after do |example|
@@ -82,7 +108,17 @@ RSpec.describe 'comments', type: :request do
     end
 
     put('update comment') do
+      consumes 'application/json'
+      security [BearerAuth: []]
+      parameter name: :comment, in: :body, schema: {
+        type: :object,
+        properties: {
+          content: { type: :string }
+        },
+        required: %w[content]
+      }
       response(200, 'successful') do
+        let(:Authorization) { valid_token }
         let(:id) { '123' }
 
         after do |example|
@@ -97,7 +133,10 @@ RSpec.describe 'comments', type: :request do
     end
 
     delete('delete comment') do
+      consumes 'application/json'
+      security [BearerAuth: []]
       response(200, 'successful') do
+        let(:Authorization) { valid_token }
         let(:id) { '123' }
 
         after do |example|

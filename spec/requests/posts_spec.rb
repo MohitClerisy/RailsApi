@@ -30,7 +30,18 @@ RSpec.describe 'posts', type: :request do
     end
 
     post('create post') do
+      consumes 'application/json'
+      security [BearerAuth: []]
+      parameter name: :post, in: :body, schema: {
+        type: :object,
+        properties: {
+          title: { type: :string },
+          description: { type: :string }
+        },
+        required: %w[title description]
+      }
       response(200, 'successful') do
+        let(:Authorization) { valid_token }
         after do |example|
           example.metadata[:response][:content] = {
             'application/json' => {
@@ -45,10 +56,13 @@ RSpec.describe 'posts', type: :request do
 
   path '/api/v1/posts/{id}' do
     # You'll want to customize the parameter types...
-    parameter name: 'id', in: :path, type: :string, description: 'id'
-
     get('show post') do
+      parameter name: 'id', in: :path, type: :string, description: 'id'
+      consumes 'application/json'
+      security [BearerAuth: []]
+
       response(200, 'successful') do
+        let(:Authorization) { valid_token }
         let(:id) { '123' }
 
         after do |example|
@@ -63,7 +77,19 @@ RSpec.describe 'posts', type: :request do
     end
 
     patch('update post') do
+      parameter name: 'id', in: :path, type: :string, description: 'id'
+      consumes 'application/json'
+      security [BearerAuth: []]
+      parameter name: :post, in: :body, schema: {
+        type: :object,
+        properties: {
+          title: { type: :string },
+          description: { type: :string }
+        },
+        required: %w[title description]
+      }
       response(200, 'successful') do
+        let(:Authorization) { valid_token }
         let(:id) { '123' }
 
         after do |example|
@@ -78,7 +104,19 @@ RSpec.describe 'posts', type: :request do
     end
 
     put('update post') do
+      parameter name: 'id', in: :path, type: :string, description: 'id'
+      consumes 'application/json'
+      security [BearerAuth: []]
+      parameter name: :post, in: :body, schema: {
+        type: :object,
+        properties: {
+          title: { type: :string },
+          description: { type: :string }
+        },
+        required: %w[title description]
+      }
       response(200, 'successful') do
+        let(:Authorization) { valid_token }
         let(:id) { '123' }
 
         after do |example|
@@ -93,7 +131,11 @@ RSpec.describe 'posts', type: :request do
     end
 
     delete('delete post') do
+      parameter name: 'id', in: :path, type: :string, description: 'id'
+      security [BearerAuth: []]
       response(200, 'successful') do
+        let(:Authorization) { valid_token }
+
         let(:id) { '123' }
 
         after do |example|

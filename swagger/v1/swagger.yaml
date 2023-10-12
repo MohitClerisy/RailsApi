@@ -65,14 +65,44 @@ paths:
       summary: list comments
       security:
       - BearerAuth: []
+      parameters:
+      - name: page
+        in: query
+        description: 'Page number (default: 1)'
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: 'Items per page (default: 10)'
+        schema:
+          type: integer
       responses:
         '200':
           description: successful
     post:
       summary: create comment
+      security:
+      - BearerAuth: []
+      parameters:
+      - name: post_id
+        in: path
+        description: post_id
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+              required:
+              - content
   "/api/v1/comments/{id}":
     parameters:
     - name: id
@@ -83,21 +113,51 @@ paths:
         type: string
     get:
       summary: show comment
+      security:
+      - BearerAuth: []
       responses:
         '200':
           description: successful
     patch:
       summary: update comment
+      security:
+      - BearerAuth: []
+      parameters: []
       responses:
         '200':
           description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+              required:
+              - content
     put:
       summary: update comment
+      security:
+      - BearerAuth: []
+      parameters: []
       responses:
         '200':
           description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+              required:
+              - content
     delete:
       summary: delete comment
+      security:
+      - BearerAuth: []
       responses:
         '200':
           description: successful
@@ -122,34 +182,105 @@ paths:
           description: successful
     post:
       summary: create post
+      security:
+      - BearerAuth: []
+      parameters: []
       responses:
         '200':
           description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+              required:
+              - title
+              - description
   "/api/v1/posts/{id}":
-    parameters:
-    - name: id
-      in: path
-      description: id
-      required: true
-      schema:
-        type: string
     get:
       summary: show post
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
       responses:
         '200':
           description: successful
     patch:
       summary: update post
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
       responses:
         '200':
           description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+              required:
+              - title
+              - description
     put:
       summary: update post
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
       responses:
         '200':
           description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+              required:
+              - title
+              - description
     delete:
       summary: delete post
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
       responses:
         '200':
           description: successful

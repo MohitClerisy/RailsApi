@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       scope :auth do
         post 'register', to: 'authentication#register'
         post 'login', to: 'authentication#login'
+        get 'confirm-account', to: 'authentication#confirm_account'
       end
       scope :user do
         get 'my-profile', to: 'users#my_profile'

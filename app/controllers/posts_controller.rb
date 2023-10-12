@@ -20,7 +20,7 @@ class PostsController < ApplicationController
     begin
       if @post.save
         render json: {
-                 post: @post
+                 post: ActiveModelSerializers::SerializableResource.new(@post)
                },
                status: :created
       else
@@ -49,7 +49,7 @@ class PostsController < ApplicationController
     if @post
       @post.update(post_params)
       render json: {
-               post: @post,
+               post: ActiveModelSerializers::SerializableResource.new(@post),
                message: I18n.t('actions.update.success')
              },
              status: :ok
@@ -57,6 +57,21 @@ class PostsController < ApplicationController
       render json: {
                errors: 'Not Found',
                message: I18n.t('actions.update.error')
+             },
+             status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find_by(id: params[:id], user_id: @current_user.id)
+    if @post.destroy
+      render json: {
+               message: I18n.t('actions.delete.success')
+             },
+             status: :ok
+    else
+      render json: {
+               errors: I18n.t('actions.delete.error')
              },
              status: :unprocessable_entity
     end

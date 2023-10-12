@@ -31,6 +31,15 @@
 
 en:
   hello: "Hello world"
+  auth:
+    confirmed: "Your account has been confirmed."
+    unconfirmed: "Your account has not been confirmed."
+    expired: "Your Token has expired."
+    locked: "Your account is locked."
+    not_found: "Account not found."
+    not_authorized: "You don't have permission to access this."
+    already_confirmed: "Your account is already confirmed."
+
   messages:
     welcome: "Welcome!"
     thanks: "Thank you!"

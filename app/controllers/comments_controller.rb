@@ -24,10 +24,10 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @comment.user_id = @current_user.id
-
+    @comment.post_id = params[:post_id]
     if @comment.save
       render json: {
-               post: @comment,
+               comment: ActiveModelSerializers::SerializableResource.new(@comment),
                message: I18n.t('actions.create.success')
              },
              status: :created
@@ -56,13 +56,28 @@ class CommentsController < ApplicationController
     if @comment
       @comment.update(comment_params)
       render json: {
-               comment: @comment,
+               comment: ActiveModelSerializers::SerializableResource.new(@comment),
                message: I18n.t('actions.update.success')
              },
              status: :ok
     else
       render json: {
                errors: I18n.t('actions.update.error')
+             },
+             status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @comment = Comment.find_by(id: params[:id], user_id: @current_user.id)
+    if @comment.destroy
+      render json: {
+               message: I18n.t('actions.delete.success')
+             },
+             status: :ok
+    else
+      render json: {
+               errors: I18n.t('actions.delete.error')
              },
              status: :unprocessable_entity
     end

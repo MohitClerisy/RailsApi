@@ -18,7 +18,18 @@ class ApplicationController < ActionController::API
     token = header.split(' ').last if header
     decoded = jwt_decode(token)
     @current_user = User.includes(:posts).find(decoded[:user_id])
-  rescue StandardError => e
+    if @current_user.nil?
+      render json: {
+               error: I18n.t('auth.invalid_token')
+             },
+             status: :unauthorized
+    elsif !@current_user.is_verified.nil? && !@current_user.is_verified
+      render json: {
+               error: I18n.t('auth.unconfirmed')
+             },
+             status: :unauthorized
+    end
+  rescue JWT::DecodeError, JWT::ExpiredSignature, JWT::VerificationError
     render json: {
              error: 'Unauthorized',
              message: e
