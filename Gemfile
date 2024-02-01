@@ -14,7 +14,7 @@ gem 'rails-i18n', '~> 7.0.0'
 gem 'pg', '~> 1.1'
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 5.6'
 
 # Use .env variables
 gem 'dotenv-rails'
